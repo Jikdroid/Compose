@@ -27,4 +27,12 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+    @Composable
+    fun PreviewWellnessTaskItem() {
+        BasicStateCodelabTheme {
+            WellnessTaskItem("This is a Task",true,{}, {})
+        }
+    }
 }
