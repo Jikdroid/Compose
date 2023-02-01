@@ -2,6 +2,8 @@ package jik.compose.basicstatecodelab
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 
 
@@ -11,6 +13,10 @@ fun WellnessScreen(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         StatefulCounter()
-        WellnessTaskList()
+
+        val list = remember { getWellnessTasks().toMutableStateList() }
+        WellnessTaskList(list = list, onCloseTask = { task -> list.remove(task) })
     }
 }
+
+private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
