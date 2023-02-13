@@ -430,7 +430,8 @@ private fun HomeTabIndicator(
                 spring(stiffness = Spring.StiffnessVeryLow)
             }
         },
-        label = "Indicator right") { page ->
+        label = "Indicator right"
+    ) { page ->
         tabPositions[page.ordinal].right
     }
     val color by transition.animateColor(label = " Indicator color") { page ->
@@ -521,7 +522,20 @@ private fun WeatherRow(
 @Composable
 private fun LoadingRow() {
     // TODO 5: Animate this value between 0f and 1f, then back to 0f repeatedly.
-    val alpha = 1f
+    val infiniteTransition = rememberInfiniteTransition()
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = keyframes {
+                durationMillis = 1000
+                0.7f at 500
+                0.9f at 800
+            },
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
     Row(
         modifier = Modifier
             .heightIn(min = 64.dp)
